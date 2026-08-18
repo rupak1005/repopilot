@@ -174,6 +174,10 @@
   --tracing-track: #d8dbde;
   --tracing-stop: #c5c9ce;
   --tracing-stop-on: #5e6ad2;
+  --tracing-fill: linear-gradient(to bottom, #4f5bd5, #5e6ad2);
+  --tracing-fill-glow: 0 0 10px #5e6ad233;
+  --tracing-head: #5e6ad2;
+  --tracing-head-glow: 0 0 10px #5e6ad24d;
 }
 
 @media (max-width: 1280px) {
@@ -272,6 +276,10 @@
   --tracing-track: #ffffff18;
   --tracing-stop: #3a3d44;
   --tracing-stop-on: #c9ceff;
+  --tracing-fill: linear-gradient(to bottom, #5e6ad2, #828fff);
+  --tracing-fill-glow: 0 0 14px #5e6ad288;
+  --tracing-head: #e8eaff;
+  --tracing-head-glow: 0 0 18px #828fff;
 }
 
 /* Keep these unlayered so they win over JIT snapshots that baked dark hex. */
@@ -1310,8 +1318,8 @@ html:not(.dark) .liquid-glass {
   width: 2px;
   height: 100%;
   transform-origin: top;
-  background: linear-gradient(to bottom, #5e6ad2, #828fff);
-  box-shadow: 0 0 14px #5e6ad288;
+  background: var(--tracing-fill);
+  box-shadow: var(--tracing-fill-glow);
 }
 
 .tracing-head {
@@ -1320,8 +1328,8 @@ html:not(.dark) .liquid-glass {
   width: 9px;
   height: 9px;
   border-radius: 50%;
-  background: #e8eaff;
-  box-shadow: 0 0 18px #828fff;
+  background: var(--tracing-head);
+  box-shadow: 0 0 0 2px var(--bg-base), var(--tracing-head-glow);
   transform: translate(-50%, -50%);
 }
 
