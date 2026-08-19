@@ -1,16 +1,17 @@
-import { useEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { useTheme } from "next-themes";
 import Navbar from "./components/Navbar.jsx";
 import Hero from "./components/Hero.jsx";
-import ArchitecturePipeline from "./components/ArchitecturePipeline.jsx";
-import Benefits from "./components/Benefits.jsx";
-import ProductSections from "./components/ProductSections.jsx";
-import CapabilitiesGrid from "./components/CapabilitiesGrid.jsx";
-import TechnicalSpecs from "./components/TechnicalSpecs.jsx";
 import Footer from "./components/Footer.jsx";
-import EasterEggModal from "./components/EasterEggModal.jsx";
 import WaitlistModal from "./components/Waitlist.jsx";
+import EasterEggModal from "./components/EasterEggModal.jsx";
 import { SiteCursor } from "./components/effects.jsx";
+
+const ArchitecturePipeline = lazy(() => import("./components/ArchitecturePipeline.jsx"));
+const Benefits = lazy(() => import("./components/Benefits.jsx"));
+const ProductSections = lazy(() => import("./components/ProductSections.jsx"));
+const CapabilitiesGrid = lazy(() => import("./components/CapabilitiesGrid.jsx"));
+const TechnicalSpecs = lazy(() => import("./components/TechnicalSpecs.jsx"));
 
 function ThemeMeta() {
   const { resolvedTheme } = useTheme();
@@ -21,6 +22,10 @@ function ThemeMeta() {
   }, [resolvedTheme]);
 
   return null;
+}
+
+function SectionFallback() {
+  return <div className="section-block" aria-hidden="true" />;
 }
 
 export default function App() {
@@ -37,11 +42,13 @@ export default function App() {
       <Navbar />
       <main id="main" className="relative min-w-0">
         <Hero />
-        <ArchitecturePipeline />
-        <Benefits />
-        <ProductSections />
-        <CapabilitiesGrid />
-        <TechnicalSpecs />
+        <Suspense fallback={<SectionFallback />}>
+          <ArchitecturePipeline />
+          <Benefits />
+          <ProductSections />
+          <CapabilitiesGrid />
+          <TechnicalSpecs />
+        </Suspense>
       </main>
       <Footer />
     </div>

@@ -1,16 +1,34 @@
-import { useRef } from "react";
-import heroBlackhole from "../assets/hero-blackhole.png";
-import heroLight from "../assets/hero-light.jpg";
+import { useEffect, useRef, useState } from "react";
+import { useTheme } from "next-themes";
+import heroBlackhole from "../assets/hero-blackhole.webp";
+import heroBlackholeSm from "../assets/hero-blackhole-1280.webp";
+import heroLight from "../assets/hero-light.webp";
 import HeroProduct from "./HeroProduct.jsx";
 import { WaitlistButton } from "./Waitlist.jsx";
 import { FlipWords, Magnetic, Reveal, SplitText } from "./effects.jsx";
+import { triggerOverdrive } from "../overdrive.js";
 
 const HEADLINE_LEAD = "Understand your codebase before you";
+const HEADLINE = "Understand your codebase before you change it.";
 const HEADLINE_CHARS = HEADLINE_LEAD.replace(/\s/g, "").length;
 const WORD_DELAY = HEADLINE_CHARS * 0.03;
 
+function useDarkHero() {
+  const { resolvedTheme } = useTheme();
+  const [dark, setDark] = useState(() =>
+    typeof document === "undefined" ? true : document.documentElement.classList.contains("dark"),
+  );
+
+  useEffect(() => {
+    if (resolvedTheme) setDark(resolvedTheme !== "light");
+  }, [resolvedTheme]);
+
+  return dark;
+}
+
 export default function Hero() {
   const spotRef = useRef(null);
+  const dark = useDarkHero();
 
   const onMove = (event) => {
     const el = spotRef.current;
@@ -29,26 +47,33 @@ export default function Hero() {
     >
       <div className="hero-space" aria-hidden="true">
         <div className="hero-photo-wrap">
-          <img
-            className="hero-photo hero-photo--dark"
-            src={heroBlackhole}
-            alt=""
-            width={3840}
-            height={1620}
-            decoding="async"
-            fetchPriority="high"
-          />
-          <img
-            className="hero-photo hero-photo--light"
-            src={heroLight}
-            alt=""
-            width={1024}
-            height={571}
-            decoding="async"
-          />
+          {dark ? (
+            <img
+              className="hero-photo"
+              src={heroBlackhole}
+              srcSet={`${heroBlackholeSm} 1280w, ${heroBlackhole} 1920w`}
+              sizes="100vw"
+              alt=""
+              width={1920}
+              height={810}
+              decoding="async"
+              fetchPriority="high"
+            />
+          ) : (
+            <img
+              className="hero-photo"
+              src={heroLight}
+              alt=""
+              width={1024}
+              height={571}
+              decoding="async"
+              fetchPriority="high"
+            />
+          )}
         </div>
         <div className="hero-vignette" />
       </div>
+      <HorizonHotspot />
       <div className="hero-spot" aria-hidden="true" />
       <div className="page-shell relative z-[1]">
         <Reveal>
@@ -56,11 +81,13 @@ export default function Hero() {
         </Reveal>
 
         <h1 className="hero-headline mt-5 sm:mt-6">
-          <SplitText text={HEADLINE_LEAD} />{" "}
-          <span className="hero-headline-end">
-            <FlipWords delay={WORD_DELAY} words={["change", "merge", "review", "ship"]} />
-            {" "}
-            <SplitText text="it." delay={WORD_DELAY + 0.12} />
+          <span className="sr-only">{HEADLINE}</span>
+          <span aria-hidden="true">
+            <SplitText text={HEADLINE_LEAD} />{" "}
+            <span className="hero-headline-end">
+              <FlipWords delay={WORD_DELAY} words={["change", "merge", "review", "ship"]} />{" "}
+              <SplitText text="it." delay={WORD_DELAY + 0.12} />
+            </span>
           </span>
         </h1>
 
@@ -92,5 +119,44 @@ export default function Hero() {
         </p>
       </div>
     </section>
+  );
+}
+
+function HorizonHotspot() {
+  const [warming, setWarming] = useState(false);
+  const dwellRef = useRef(0);
+  const warmRef = useRef(0);
+
+  const disarm = () => {
+    window.clearTimeout(dwellRef.current);
+    window.clearTimeout(warmRef.current);
+    setWarming(false);
+  };
+
+  const arm = () => {
+    disarm();
+    warmRef.current = window.setTimeout(() => setWarming(true), 260);
+    dwellRef.current = window.setTimeout(() => {
+      setWarming(false);
+      triggerOverdrive();
+    }, 1100);
+  };
+
+  useEffect(() => () => disarm(), []);
+
+  return (
+    <div
+      className={`horizon-hotspot${warming ? " is-warming" : ""}`}
+      aria-hidden="true"
+      onPointerEnter={arm}
+      onPointerLeave={disarm}
+      onPointerDown={(event) => {
+        if (event.pointerType === "touch") arm();
+      }}
+      onPointerUp={(event) => {
+        if (event.pointerType === "touch") disarm();
+      }}
+      onPointerCancel={disarm}
+    />
   );
 }

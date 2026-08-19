@@ -8,25 +8,98 @@
     />
     <meta name="color-scheme" content="dark light" />
     <meta name="theme-color" content="#08090a" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="robots" content="index, follow" />
+    <meta name="googlebot" content="index, follow" />
+    <meta name="application-name" content="RepoPilot" />
+    <meta name="author" content="RepoPilot" />
     <meta
       name="description"
-      content="RepoPilot is an AI engineering intelligence platform that understands your codebase, its dependencies, its history, and the impact of every change."
+      content="RepoPilot is an AI engineering intelligence platform that understands your codebase, its dependencies, Git history, and the impact of every change."
     />
+    <link rel="canonical" href="https://repopilot-pi.vercel.app/" />
+    <link rel="manifest" href="/site.webmanifest" />
+
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="RepoPilot" />
+    <meta property="og:url" content="https://repopilot-pi.vercel.app/" />
     <meta property="og:title" content="RepoPilot — Understand your codebase before you change it" />
     <meta
       property="og:description"
       content="A living model of architecture, dependencies, Git history, and pull requests. Answers with evidence, not speculation."
     />
-    <meta property="og:image" content="/og.png" />
+    <meta property="og:image" content="https://repopilot-pi.vercel.app/og.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="RepoPilot: understand your codebase before you change it"
+    />
+
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="RepoPilot — Understand your codebase before you change it" />
     <meta
       name="twitter:description"
       content="A living model of architecture, dependencies, Git history, and pull requests. Answers with evidence, not speculation."
     />
-    <meta name="twitter:image" content="/og.png" />
+    <meta name="twitter:image" content="https://repopilot-pi.vercel.app/og.jpg" />
+    <meta
+      name="twitter:image:alt"
+      content="RepoPilot: understand your codebase before you change it"
+    />
+
     <title>RepoPilot — Understand your codebase before you change it</title>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://repopilot-pi.vercel.app/#organization",
+            "name": "RepoPilot",
+            "url": "https://repopilot-pi.vercel.app/",
+            "logo": "https://repopilot-pi.vercel.app/favicon.png",
+            "email": "rupak1005saini@gmail.com",
+            "sameAs": [
+              "https://github.com/rupak1005",
+              "https://www.linkedin.com/in/rupak1005/",
+              "https://rupak1005.vercel.app/"
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://repopilot-pi.vercel.app/#website",
+            "name": "RepoPilot",
+            "url": "https://repopilot-pi.vercel.app/",
+            "description": "Engineering intelligence for architecture, dependencies, Git history, and pull requests.",
+            "publisher": { "@id": "https://repopilot-pi.vercel.app/#organization" },
+            "inLanguage": "en"
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://repopilot-pi.vercel.app/#webpage",
+            "url": "https://repopilot-pi.vercel.app/",
+            "name": "RepoPilot — Understand your codebase before you change it",
+            "description": "RepoPilot is an AI engineering intelligence platform that understands your codebase before you change it.",
+            "isPartOf": { "@id": "https://repopilot-pi.vercel.app/#website" },
+            "about": { "@id": "https://repopilot-pi.vercel.app/#app" },
+            "inLanguage": "en"
+          },
+          {
+            "@type": "SoftwareApplication",
+            "@id": "https://repopilot-pi.vercel.app/#app",
+            "name": "RepoPilot",
+            "applicationCategory": "DeveloperApplication",
+            "operatingSystem": "Web",
+            "description": "Local AST and graph intelligence for architecture, callers, Git history, and pull-request review.",
+            "url": "https://repopilot-pi.vercel.app/",
+            "publisher": { "@id": "https://repopilot-pi.vercel.app/#organization" }
+          }
+        ]
+      }
+    </script>
     <script>
       (function () {
         try {
@@ -46,6 +119,17 @@
   </head>
   <body>
     <div id="root"></div>
+    <noscript>
+      <main>
+        <h1>RepoPilot — Understand your codebase before you change it</h1>
+        <p>
+          RepoPilot is an AI engineering intelligence platform. It builds a living model of
+          architecture, dependencies, Git history, and pull requests, then answers with evidence
+          rather than speculation.
+        </p>
+        <p>Interactive previews on this site are demo fixtures from a local graph, not a live parse.</p>
+      </main>
+    </noscript>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

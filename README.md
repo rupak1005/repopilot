@@ -23,7 +23,7 @@ Build: `npm run build` then `npm run preview`.
 
 Production: [https://repopilot-pi.vercel.app](https://repopilot-pi.vercel.app)
 
-Static Vite app. The GitHub repo is connected to Vercel, so pushes to `main` deploy automatically. After changing the production domain, set the live origin in `index.html` `og:url` / `og:image` if crawlers need absolute URLs.
+Static Vite app. The GitHub repo is connected to Vercel, so pushes to `main` deploy automatically. After changing the production domain, update `index.html` (`canonical`, `og:url`, `og:image`), `public/robots.txt`, and `public/sitemap.xml`.
 
 ## Decisions
 

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { ShineFrame } from "./ui.jsx";
+import { OVERDRIVE_EVENT, takePendingOverdrive } from "../overdrive.js";
 
 const KONAMI = [
   "ArrowUp",
@@ -14,14 +14,28 @@ const KONAMI = [
   "a",
 ];
 
+const FRAGMENTS = [
+  { t: "token_verifier.go", a: 18, r: 38 },
+  { t: "gateway/middleware.ts", a: 62, r: 46 },
+  { t: "entitlements.go", a: 104, r: 34 },
+  { t: "PaymentController", a: 148, r: 44 },
+  { t: "VerifyBearerToken", a: 192, r: 36 },
+  { t: "Claims.Plan", a: 236, r: 42 },
+  { t: "PR #142", a: 278, r: 31 },
+  { t: "local AST index", a: 318, r: 48 },
+];
+
 export default function EasterEggModal() {
   const [open, setOpen] = useState(false);
   const indexRef = useRef(0);
   const closeRef = useRef(null);
 
   useEffect(() => {
+    if (takePendingOverdrive()) setOpen(true);
+
     const onKey = (event) => {
       if (event.metaKey || event.ctrlKey || event.altKey) return;
+      if (event.target.closest?.("input, textarea, select")) return;
       const key = event.key.length === 1 ? event.key.toLowerCase() : event.key;
       const expected = KONAMI[indexRef.current];
       if (key === expected) {
@@ -38,69 +52,86 @@ export default function EasterEggModal() {
     const onOverdrive = () => setOpen(true);
 
     window.addEventListener("keydown", onKey);
-    window.addEventListener("repopilot:overdrive", onOverdrive);
+    window.addEventListener(OVERDRIVE_EVENT, onOverdrive);
     return () => {
       window.removeEventListener("keydown", onKey);
-      window.removeEventListener("repopilot:overdrive", onOverdrive);
+      window.removeEventListener(OVERDRIVE_EVENT, onOverdrive);
     };
   }, []);
 
   useEffect(() => {
     if (!open) return undefined;
+    document.documentElement.classList.add("is-horizon");
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
     closeRef.current?.focus();
     const onEscape = (event) => {
       if (event.key === "Escape") setOpen(false);
     };
     window.addEventListener("keydown", onEscape);
-    return () => window.removeEventListener("keydown", onEscape);
+    return () => {
+      document.documentElement.classList.remove("is-horizon");
+      document.body.style.overflow = prev;
+      window.removeEventListener("keydown", onEscape);
+    };
   }, [open]);
 
   if (!open) return null;
 
   return (
     <div
-      className="fixed inset-0 z-[200] flex items-end justify-center p-3 sm:items-center sm:p-4"
+      className="horizon-layer"
       role="dialog"
       aria-modal="true"
       aria-labelledby="overdrive-title"
     >
-      <div
-        className="fixed inset-0 bg-[var(--color-overlay-primary)]"
-        aria-hidden="true"
+      <button
+        type="button"
+        className="horizon-veil"
+        aria-label="Close event horizon"
         onClick={() => setOpen(false)}
       />
 
-      <ShineFrame className="relative z-10 mb-[env(safe-area-inset-bottom,0px)] w-full max-w-xl max-h-[min(36rem,calc(100dvh-1.5rem))] overflow-y-auto">
-        <div className="relative z-[2] p-5 sm:p-6">
-        <div className="mb-4 flex items-center justify-between gap-3 border-b border-border-subtle pb-3">
+      <div className="horizon-well" aria-hidden="true">
+        <div className="horizon-core" />
+        {FRAGMENTS.map((frag) => (
+          <span
+            key={frag.t}
+            className="horizon-chip"
+            style={{
+              "--a": `${frag.a}deg`,
+              "--r": `${frag.r}vmin`,
+              "--d": `${frag.a / 90}s`,
+            }}
+          >
+            {frag.t}
+          </span>
+        ))}
+      </div>
+
+      <div className="horizon-hud">
+        <div className="mb-3 flex items-center justify-between gap-3">
           <p id="overdrive-title" className="font-mono text-mini font-medium text-status-green">
-            Terminal overdrive engaged
+            Event horizon
           </p>
           <button
             ref={closeRef}
             type="button"
             onClick={() => setOpen(false)}
-            aria-label="Close terminal overdrive"
+            aria-label="Close event horizon"
             className="rounded-4 border border-border-subtle bg-surface-tint px-2 py-1 font-mono text-micro text-text-tertiary hover:text-text-primary"
           >
             Esc
           </button>
         </div>
-
-        <pre className="code-block overflow-hidden rounded-8 border border-border-subtle bg-surface-base p-4 font-mono text-[13px] leading-6 text-text-secondary">
-          <span className="text-status-green">$</span> repopilot --mode stealth{"\n"}
-          <span className="text-text-quaternary">index:</span> local graph{"  "}
-          <span className="text-text-quaternary">parser:</span> tree-sitter{"\n"}
-          <span className="text-text-quaternary">retention:</span> none{"  "}
-          <span className="text-text-quaternary">latency:</span> 41ms{"\n\n"}
-          <span className="text-text-quaternary">{">"}</span> walk services/auth/token_verifier.go{"\n"}
-          {"  "}callers: 11{"\n"}
-          {"  "}packages: 7{"\n"}
-          {"  "}prs: #184 (Claims){"\n\n"}
-          <span className="text-status-green">overdrive complete.</span>
-        </pre>
-        </div>
-      </ShineFrame>
+        <p className="whitespace-pre-wrap font-mono text-[12px] leading-5 text-text-secondary">
+          <span className="text-status-green">$</span> repopilot graph --local{"\n"}
+          <span className="text-text-quaternary">walk</span> services/auth/token_verifier.go{"\n"}
+          <span className="text-text-quaternary">callers</span> 11{"  "}
+          <span className="text-text-quaternary">packages</span> 7{"\n"}
+          The graph never left the machine. Demo fixture. 0 remotes.
+        </p>
+      </div>
     </div>
   );
 }

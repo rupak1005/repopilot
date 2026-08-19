@@ -3,6 +3,7 @@ import { productNav } from "../data/product.js";
 import { LogoLockup } from "./ui.jsx";
 import { ThemeToggleButton } from "./ui/skiper-ui/skiper26";
 import { WaitlistButton } from "./Waitlist.jsx";
+import { triggerOverdrive } from "../overdrive.js";
 
 const links = [
   { href: "#analyzer", label: "Analyzer" },
@@ -71,7 +72,7 @@ export default function Navbar() {
             if (markClicks.current >= 7) {
               event.preventDefault();
               markClicks.current = 0;
-              window.dispatchEvent(new Event("repopilot:overdrive"));
+              triggerOverdrive();
             }
           }}
         >
