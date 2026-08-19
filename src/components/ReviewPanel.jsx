@@ -23,8 +23,8 @@ export default function ReviewPanel() {
           </div>
         </div>
 
-        <div className="grid min-h-0 lg:min-h-[420px] lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
-          <ul className="border-b border-border-subtle lg:border-b-0 lg:border-r">
+        <div className="product-split min-h-0 lg:min-h-[420px]">
+          <ul className="product-rail min-w-0">
             {reviewFindings.map((item) => {
               const selected = item.id === activeId;
               return (
@@ -33,16 +33,16 @@ export default function ReviewPanel() {
                     type="button"
                     onClick={() => setActiveId(item.id)}
                     aria-pressed={selected}
-                    className={`flex min-h-11 w-full items-start gap-3 px-4 py-3 text-left transition-colors duration-150 sm:px-5 ${
+                    className={`flex min-h-10 w-full items-start gap-2 px-2.5 py-2.5 text-left transition-colors duration-150 sm:min-h-11 sm:gap-3 sm:px-5 sm:py-3 ${
                       selected ? "bg-surface-tint-hover" : "hover:bg-surface-tint"
                     }`}
                   >
                     <span className="mt-0.5">
                       <SeverityPill value={item.severity} />
                     </span>
-                    <span>
-                      <span className="block text-small font-medium text-text-primary">{item.title}</span>
-                      <span className="mt-0.5 block text-mini text-text-tertiary">
+                    <span className="min-w-0">
+                      <span className="block truncate text-[12px] font-medium text-text-primary sm:text-small">{item.title}</span>
+                      <span className="mt-0.5 hidden text-mini text-text-tertiary sm:block">
                         {item.category} · {item.confidence} confidence
                       </span>
                     </span>
@@ -52,7 +52,7 @@ export default function ReviewPanel() {
             })}
           </ul>
 
-          <article className="p-4 sm:p-6">
+          <article className="min-w-0 p-3 sm:p-6">
             <div className="mb-3 flex flex-wrap items-center gap-2">
               <SeverityPill value={finding.severity} />
               <span className="text-mini text-text-tertiary">{finding.category}</span>

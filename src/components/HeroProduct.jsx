@@ -63,8 +63,10 @@ function Sidebar({ active, onSelect }) {
           A
         </span>
         <div className="min-w-0">
-          <p className="truncate text-[13px] font-medium text-text-primary">acme/api</p>
-          <p className="truncate font-mono text-[11px] text-text-quaternary">graph v3 · local</p>
+          <p className="truncate text-[12px] font-medium text-text-primary sm:text-[13px]">acme/api</p>
+          <p className="hidden truncate font-mono text-[11px] text-text-quaternary min-[420px]:block">
+            graph v3 · local
+          </p>
         </div>
       </div>
       <nav className="hero-sidebar-nav" aria-label="Product preview">
@@ -316,20 +318,6 @@ export default function HeroProduct() {
       <div className="hero-product relative z-[2]">
         <Sidebar active={view} onSelect={selectView} />
         <div className="hero-product-main min-w-0">
-          <div className="flex flex-col gap-1 px-2 pb-2 pt-2 md:hidden">
-            {NAV.map((item) => (
-              <button
-                key={item.id}
-                type="button"
-                onClick={() => selectView(item.id)}
-                className={`flex min-h-10 w-full items-center rounded-6 px-3 text-left text-[13px] ${
-                  view === item.id ? "bg-surface-tint-strong text-text-primary" : "text-text-tertiary"
-                }`}
-              >
-                {item.label}
-              </button>
-            ))}
-          </div>
           <div className="product-view flex-1">{panel}</div>
         </div>
       </div>

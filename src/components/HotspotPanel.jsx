@@ -8,8 +8,8 @@ export default function HotspotPanel() {
 
   return (
     <ShineFrame>
-      <div className="relative z-[2] grid min-h-0 lg:min-h-[420px] lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-        <ul className="border-b border-border-subtle lg:border-b-0 lg:border-r">
+      <div className="relative z-[2] product-split min-h-0 lg:min-h-[420px]">
+        <ul className="product-rail min-w-0">
           {hotspots.map((item) => {
             const selected = item.id === activeId;
             return (
@@ -18,13 +18,13 @@ export default function HotspotPanel() {
                   type="button"
                   onClick={() => setActiveId(item.id)}
                   aria-pressed={selected}
-                  className={`flex min-h-11 w-full items-center justify-between gap-3 px-4 py-4 text-left transition-colors duration-150 sm:px-5 ${
+                  className={`flex min-h-10 w-full items-center justify-between gap-2 px-2.5 py-3 text-left transition-colors duration-150 sm:min-h-11 sm:gap-3 sm:px-5 sm:py-4 ${
                     selected ? "bg-surface-tint-hover" : "hover:bg-surface-tint"
                   }`}
                 >
-                  <span>
-                    <span className="block font-mono text-[13px] text-text-primary">{item.name}</span>
-                    <span className="mt-1 block text-mini text-text-tertiary">
+                  <span className="min-w-0">
+                    <span className="block truncate font-mono text-[12px] text-text-primary sm:text-[13px]">{item.name}</span>
+                    <span className="mt-1 hidden text-mini text-text-tertiary sm:block">
                       {item.signals[0].label} {item.signals[0].value}
                     </span>
                   </span>
@@ -35,13 +35,13 @@ export default function HotspotPanel() {
           })}
         </ul>
 
-        <article className="p-4 sm:p-6">
+        <article className="min-w-0 p-3 sm:p-6">
           <div className="mb-3 flex min-w-0 flex-wrap items-center gap-2">
             <h3 className="min-w-0 break-all font-mono text-title2 font-semibold text-text-primary">{active.name}</h3>
             <SeverityPill value={active.risk} />
           </div>
           <p className="max-w-prose text-small text-text-secondary">{active.detail}</p>
-          <div className="mt-5 grid gap-2 sm:grid-cols-3">
+          <div className="panel-metrics mt-5">
             {active.signals.map((signal) => (
               <div key={signal.label} className="rounded-6 border border-border-subtle bg-surface-tint p-3">
                 <p className="text-micro text-text-quaternary">{signal.label}</p>

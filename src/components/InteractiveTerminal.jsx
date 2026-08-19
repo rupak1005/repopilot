@@ -147,10 +147,10 @@ export default function InteractiveTerminal({ framed = false }) {
           </div>
         </div>
 
-        <div className="grid min-w-0 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)]">
-          <aside className="min-w-0 border-b border-border-subtle lg:border-b-0 lg:border-r lg:border-border-subtle">
-            <p className="px-4 pb-2 pt-4 text-mini text-text-tertiary sm:px-5">File targets</p>
-            <ul className="flex min-w-0 flex-col gap-2 px-4 pb-4 sm:px-5">
+        <div className="product-split min-w-0">
+          <aside className="product-rail min-w-0">
+            <p className="px-2.5 pb-2 pt-3 text-[11px] text-text-tertiary sm:px-4 sm:pt-4 sm:text-mini">File targets</p>
+            <ul className="flex min-w-0 flex-col gap-1.5 px-2 pb-3 sm:px-4 sm:pb-4">
               {FILES.map((item) => {
                 const selected = item.id === file.id;
                 return (
@@ -159,16 +159,17 @@ export default function InteractiveTerminal({ framed = false }) {
                       type="button"
                       onClick={() => setActiveId(item.id)}
                       aria-pressed={selected}
-                      className={`min-h-11 w-full rounded-6 border px-3 py-2.5 text-left transition-colors duration-200 ${
+                      title={item.path}
+                      className={`min-h-10 w-full rounded-6 border px-2.5 py-2 text-left transition-colors duration-200 sm:min-h-11 sm:px-3 sm:py-2.5 ${
                         selected
                           ? "border-brand bg-surface-level2 text-text-primary"
                           : "border-surface bg-transparent hover:border-brand"
                       }`}
                     >
-                      <span className="block break-words font-mono text-mini text-text-secondary">
+                      <span className="block truncate font-mono text-[11px] text-text-secondary sm:text-mini">
                         {item.path}
                       </span>
-                      <span className="mt-1 block font-mono text-micro text-text-tertiary">
+                      <span className="mt-1 block truncate font-mono text-micro text-text-tertiary">
                         {item.node}
                       </span>
                     </button>
@@ -178,9 +179,11 @@ export default function InteractiveTerminal({ framed = false }) {
             </ul>
           </aside>
 
-          <div className="min-w-0 p-4 sm:p-5">
-            <div className="mb-4 flex flex-wrap items-center gap-2">
-              <span className="break-all font-mono text-mini text-text-secondary">{file.path}</span>
+          <div className="min-w-0 p-3 sm:p-5">
+            <div className="mb-4 flex min-w-0 flex-wrap items-center gap-2">
+              <span className="min-w-0 truncate font-mono text-mini text-text-secondary" title={file.path}>
+                {file.path}
+              </span>
               <span
                 className={`rounded-4 border px-2 py-0.5 font-mono text-micro ${riskClass[file.risk]}`}
               >
@@ -205,7 +208,7 @@ export default function InteractiveTerminal({ framed = false }) {
               ))}
             </pre>
 
-            <div className="grid gap-2 sm:grid-cols-3">
+            <div className="panel-metrics">
               {file.cards.map((card) => (
                 <article
                   key={card.label}

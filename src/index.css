@@ -1514,37 +1514,64 @@ html:not(.dark) .liquid-glass {
   display: none;
 }
 
-.graph-stack {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
+.product-split {
+  display: grid;
+  grid-template-columns: minmax(128px, 0.4fr) minmax(0, 1fr);
   min-width: 0;
+  min-height: 0;
 }
 
-.graph-stack-group {
-  display: flex;
-  flex-direction: column;
+.product-split > .product-rail {
+  min-width: 0;
+  border-right: var(--border-hairline) solid var(--color-border-translucent);
+  background: var(--glass-rail);
+}
+
+@media (min-width: 768px) {
+  .product-split {
+    grid-template-columns: minmax(180px, 0.34fr) minmax(0, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .product-split {
+    grid-template-columns: minmax(220px, 0.32fr) minmax(0, 1fr);
+  }
+}
+
+.panel-metrics {
+  display: grid;
   gap: 8px;
+  container-type: inline-size;
+}
+
+@container (min-width: 420px) {
+  .panel-metrics {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.graph-mobile {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
   min-width: 0;
 }
 
-.graph-stack-join {
-  width: 1px;
-  height: 18px;
-  margin: 8px auto;
-  background: var(--graph-edge);
-}
-
-.graph-stack-join.is-on {
-  background: var(--graph-edge-on);
-}
-
-.graph-node--stack {
+.graph-compact {
   position: relative;
-  inset: auto;
   width: 100%;
-  height: auto;
-  min-height: 52px;
+  max-width: 520px;
+  margin-inline: auto;
+  aspect-ratio: 320 / 300;
+}
+
+.graph-detail {
+  min-width: 0;
+  padding: 12px;
+  border: var(--border-hairline) solid var(--color-border-translucent);
+  border-radius: 8px;
+  background: var(--surface-elevated);
 }
 
 .graph-fit {
@@ -1562,7 +1589,7 @@ html:not(.dark) .liquid-glass {
 }
 
 @media (min-width: 1024px) {
-  .graph-stack {
+  .graph-mobile {
     display: none;
   }
 
@@ -1725,7 +1752,7 @@ html:not(.dark) .liquid-glass {
 
 .hero-product {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 128px minmax(0, 1fr);
   min-height: min(420px, 70dvh);
 }
 
@@ -1734,15 +1761,15 @@ html:not(.dark) .liquid-glass {
   min-width: 0;
   min-height: 0;
   flex-direction: column;
-  padding: 6px;
+  padding: 6px 6px 6px 0;
 }
 
 .hero-sidebar {
-  display: none;
+  display: flex;
   flex-direction: column;
   min-height: 0;
-  width: 220px;
-  padding: 14px 10px 16px;
+  width: auto;
+  padding: 10px 6px 12px;
   border-right: var(--border-hairline) solid var(--color-border-translucent);
   background: var(--glass-rail);
 }
@@ -1794,14 +1821,17 @@ html:not(.dark) .liquid-glass {
   width: 100%;
   height: 32px;
   align-items: center;
-  padding: 0 10px;
+  padding: 0 8px;
+  overflow: hidden;
   border: 0;
   border-radius: 6px;
   background: transparent;
   color: var(--color-text-tertiary);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 510;
   text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   transition: color 0.15s var(--ease-out-quad);
 }
 
@@ -1810,24 +1840,39 @@ html:not(.dark) .liquid-glass {
   color: var(--color-text-primary);
 }
 
+@media (min-width: 480px) {
+  .hero-product {
+    grid-template-columns: 168px minmax(0, 1fr);
+  }
+
+  .hero-sidebar {
+    padding: 12px 8px 14px;
+  }
+
+  .hero-sidebar-link {
+    padding: 0 10px;
+    font-size: 13px;
+  }
+}
+
 @media (min-width: 768px) {
   .hero-product {
     grid-template-columns: 220px minmax(0, 1fr);
     min-height: min(600px, 72dvh);
   }
 
-  .hero-product-main {
-    padding: 6px 6px 6px 0;
-  }
-
   .hero-sidebar {
-    display: flex;
+    padding: 14px 10px 16px;
   }
 }
 
 @media (max-width: 479px) {
   .hero-product {
     min-height: 380px;
+  }
+
+  .hero-sidebar-workspace {
+    padding: 0 6px;
   }
 }
 
@@ -1870,12 +1915,19 @@ html:not(.dark) .liquid-glass {
   box-shadow: 0 0 0 1px color-mix(in oklab, var(--color-indigo) 28%, transparent);
 }
 
-.graph-node.graph-node--stack {
-  position: relative;
-  inset: auto;
-  width: 100%;
-  height: auto;
-  min-height: 52px;
+.graph-node.graph-node--compact {
+  box-sizing: border-box;
+  padding: 6px 8px;
+}
+
+.graph-node--compact .graph-node-path {
+  display: none;
+}
+
+@media (min-width: 420px) {
+  .graph-node--compact .graph-node-path {
+    display: block;
+  }
 }
 
 .graph-edge {

@@ -11,9 +11,9 @@ export default function AskPanel() {
 
   return (
     <ShineFrame>
-      <div className="relative z-[2] grid min-h-0 grid-cols-1 lg:min-h-[440px] lg:grid-cols-[minmax(0,220px)_minmax(0,1fr)]">
-        <aside className="glass-rail flex min-w-0 flex-col justify-between border-b border-border-subtle p-3 sm:p-4 lg:border-b-0 lg:border-r lg:border-border-subtle">
-          <ul className="flex min-w-0 flex-col gap-1.5">
+      <div className="relative z-[2] product-split min-h-0 lg:min-h-[440px]">
+        <aside className="product-rail flex min-w-0 flex-col justify-between p-2 sm:p-3">
+          <ul className="flex min-w-0 flex-col gap-1">
             {askPrompts.map((item) => {
               const selected = item.id === activeId;
               return (
@@ -22,19 +22,20 @@ export default function AskPanel() {
                     type="button"
                     onClick={() => setActiveId(item.id)}
                     aria-pressed={selected}
-                    className={`flex min-h-11 w-full items-center rounded-6 border px-3 py-2 text-left font-mono text-mini transition-colors duration-150 ${
+                    title={item.prompt}
+                    className={`flex min-h-10 w-full items-center rounded-6 border px-2.5 py-2 text-left font-mono text-[11px] leading-4 transition-colors duration-150 sm:min-h-11 sm:px-3 sm:text-mini ${
                       selected
                         ? "border-border-strong bg-surface-tint-strong text-text-primary"
                         : "border-transparent text-text-tertiary hover:border-border-subtle hover:text-text-secondary"
                     }`}
                   >
-                    <span className="min-w-0 whitespace-normal break-words">{item.prompt}</span>
+                    <span className="min-w-0 truncate">{item.prompt}</span>
                   </button>
                 </li>
               );
             })}
           </ul>
-          <p className="hidden border-t border-border-subtle px-1 pt-4 font-mono text-micro text-text-quaternary lg:block">
+          <p className="mt-3 border-t border-border-subtle px-1 pt-3 font-mono text-micro text-text-quaternary">
             Local AST graph
           </p>
         </aside>
@@ -57,16 +58,15 @@ export default function AskPanel() {
               </div>
               <h3 className="text-title2 font-semibold text-text-primary">{answer.title}</h3>
               <p className="mt-3 max-w-[65ch] text-small text-text-secondary">{answer.body}</p>
-              <div className="mt-6 flex flex-col gap-2 font-mono text-mini lg:flex-row lg:flex-wrap lg:items-center">
+              <div className="mt-6 flex flex-wrap items-center gap-1.5 font-mono text-mini">
                 {answer.graph.map((node, index) => (
-                  <span key={node} className="flex min-w-0 flex-col items-stretch gap-2 lg:inline-flex lg:flex-row lg:items-center lg:gap-1.5">
-                    <span className="rounded-4 border border-border-subtle bg-surface-tint px-2.5 py-1.5 text-text-secondary lg:py-1">
+                  <span key={node} className="inline-flex min-w-0 items-center gap-1.5">
+                    <span className="rounded-4 border border-border-subtle bg-surface-tint px-2.5 py-1 text-text-secondary">
                       {node}
                     </span>
                     {index < answer.graph.length - 1 ? (
-                      <span className="self-center text-text-quaternary lg:self-auto" aria-hidden="true">
-                        <span className="lg:hidden">↓</span>
-                        <span className="hidden lg:inline">→</span>
+                      <span className="text-text-quaternary" aria-hidden="true">
+                        →
                       </span>
                     ) : null}
                   </span>
