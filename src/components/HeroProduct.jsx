@@ -88,7 +88,7 @@ function OverviewView({ step }) {
   const visible = ACTIVITY.filter((item) => item.delay <= step);
 
   return (
-    <div className="grid h-full min-h-0 lg:grid-cols-[1fr_260px]">
+    <div className="grid h-full min-h-0 min-w-0 lg:grid-cols-[minmax(0,1fr)_260px]">
       <div className="min-w-0 overflow-y-auto hide-scroll px-5 py-5 sm:px-8 sm:py-6">
         <div className="mb-5 flex flex-wrap items-center gap-2">
           <span className="font-mono text-mini text-text-tertiary">RP-184</span>
@@ -97,7 +97,7 @@ function OverviewView({ step }) {
             In review
           </span>
         </div>
-        <h3 className="max-w-[34ch] text-[1.35rem] font-semibold leading-snug tracking-[-0.02em] text-text-primary">
+        <h3 className="max-w-[34ch] text-[1.15rem] font-semibold leading-snug tracking-[-0.02em] text-text-primary sm:text-[1.35rem]">
           I’m about to modify this function. What should I know?
         </h3>
         <p className="mt-3 max-w-[52ch] text-small text-text-secondary">
@@ -213,13 +213,17 @@ function CompactImpact() {
   return (
     <div className="px-5 py-5 sm:px-8">
       <p className="text-mini text-text-quaternary">Impact path</p>
-      <div className="mt-6 flex flex-wrap items-center gap-2">
+      <div className="mt-6 flex flex-col gap-2">
         {nodes.map((node, i) => (
-          <span key={node} className="inline-flex items-center gap-2">
+          <span key={node} className="flex flex-col items-stretch gap-2">
             <span className="rounded-6 border border-border-subtle bg-surface-tint px-3 py-2 font-mono text-[12px] text-text-secondary">
               {node}
             </span>
-            {i < nodes.length - 1 && <span className="text-text-quaternary">→</span>}
+            {i < nodes.length - 1 && (
+              <span className="self-center text-text-quaternary" aria-hidden="true">
+                ↓
+              </span>
+            )}
           </span>
         ))}
       </div>
@@ -308,17 +312,17 @@ export default function HeroProduct() {
     );
 
   return (
-    <ShineFrame className="hero-product-frame min-h-[520px] sm:min-h-[600px]">
+    <ShineFrame className="hero-product-frame">
       <div className="hero-product relative z-[2]">
         <Sidebar active={view} onSelect={selectView} />
-        <div className="hero-product-main">
-          <div className="flex gap-1 overflow-x-auto px-2 pb-2 pt-2 md:hidden hide-scroll">
+        <div className="hero-product-main min-w-0">
+          <div className="flex flex-col gap-1 px-2 pb-2 pt-2 md:hidden">
             {NAV.map((item) => (
               <button
                 key={item.id}
                 type="button"
                 onClick={() => selectView(item.id)}
-                className={`h-8 shrink-0 rounded-full px-3 text-[12px] ${
+                className={`flex min-h-10 w-full items-center rounded-6 px-3 text-left text-[13px] ${
                   view === item.id ? "bg-surface-tint-strong text-text-primary" : "text-text-tertiary"
                 }`}
               >

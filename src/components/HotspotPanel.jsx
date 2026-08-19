@@ -8,7 +8,7 @@ export default function HotspotPanel() {
 
   return (
     <ShineFrame>
-      <div className="relative z-[2] grid min-h-[420px] lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+      <div className="relative z-[2] grid min-h-0 lg:min-h-[420px] lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
         <ul className="border-b border-border-subtle lg:border-b-0 lg:border-r">
           {hotspots.map((item) => {
             const selected = item.id === activeId;
@@ -36,8 +36,8 @@ export default function HotspotPanel() {
         </ul>
 
         <article className="p-4 sm:p-6">
-          <div className="mb-3 flex items-center gap-2">
-            <h3 className="font-mono text-title2 font-semibold text-text-primary">{active.name}</h3>
+          <div className="mb-3 flex min-w-0 flex-wrap items-center gap-2">
+            <h3 className="min-w-0 break-all font-mono text-title2 font-semibold text-text-primary">{active.name}</h3>
             <SeverityPill value={active.risk} />
           </div>
           <p className="max-w-prose text-small text-text-secondary">{active.detail}</p>

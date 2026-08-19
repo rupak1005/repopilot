@@ -25,7 +25,7 @@ function ThemeMeta() {
 
 export default function App() {
   return (
-    <div className="relative min-h-[100dvh] overflow-x-hidden bg-surface-base text-text-primary antialiased">
+    <div className="relative min-h-[100dvh] overflow-x-clip bg-surface-base text-text-primary antialiased">
       <ThemeMeta />
       <a className="skip-link" href="#main">
         Skip to content
@@ -35,7 +35,7 @@ export default function App() {
       <WaitlistModal />
       <SiteCursor />
       <Navbar />
-      <main id="main" className="relative">
+      <main id="main" className="relative min-w-0">
         <Hero />
         <ArchitecturePipeline />
         <Benefits />

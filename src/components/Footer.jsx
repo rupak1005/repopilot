@@ -43,20 +43,20 @@ export default function Footer() {
   return (
     <section className="site-footer relative z-[2] border-t border-border-subtle">
       <div className="page-shell">
-        <Reveal className="flex flex-col items-start justify-between gap-8 md:flex-row md:items-end">
+        <Reveal className="flex w-full min-w-0 flex-col items-start justify-between gap-6 md:flex-row md:items-end md:gap-8">
           <div className="max-w-xl">
             <h2 className="cta-headline">Join the waitlist</h2>
-            <p className="mt-6 text-xl leading-relaxed text-text-secondary">
+            <p className="mt-4 text-base leading-relaxed text-text-secondary sm:mt-6 sm:text-xl">
               We’ll write when a small number of teams can run the local graph. No drip campaign.
             </p>
           </div>
-          <Magnetic>
-            <WaitlistButton className="btn-primary btn-hero whitespace-nowrap" />
+          <Magnetic className="w-full md:w-auto">
+            <WaitlistButton className="btn-primary btn-hero w-full md:w-auto" />
           </Magnetic>
         </Reveal>
 
         <Reveal delay={0.12}>
-        <footer className="mt-24 grid grid-cols-1 gap-12 border-t border-border-subtle pt-16 md:grid-cols-12 md:gap-8">
+        <footer className="mt-16 grid grid-cols-1 gap-12 border-t border-border-subtle pt-12 md:mt-24 md:grid-cols-12 md:gap-8 md:pt-16">
           <div className="flex flex-col gap-6 md:col-span-4">
             <a href="#top" className="inline-flex w-fit items-center">
               <LogoLockup />
@@ -73,7 +73,7 @@ export default function Footer() {
             <FooterCol title="Resources" items={resources} />
           </div>
 
-          <div className="mt-8 flex flex-col items-start justify-between gap-6 border-t border-border-subtle pt-8 md:col-span-12 md:mt-20 md:flex-row md:items-center">
+          <div className="mt-8 flex w-full min-w-0 flex-col items-start justify-between gap-6 border-t border-border-subtle pt-8 md:col-span-12 md:mt-20 md:flex-row md:items-center">
             <span className="font-mono text-xs text-text-quaternary">Local graph. Demo fixture.</span>
             <div className="flex items-center gap-6">
               <button

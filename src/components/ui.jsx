@@ -23,9 +23,9 @@ export function LogoMark({ className = "h-6 w-6" }) {
 
 export function LogoLockup({ className = "" }) {
   return (
-    <span className={`inline-flex items-center gap-3 ${className}`}>
-      <LogoMark className="h-6 w-6" />
-      <span className="brand-wordmark">RepoPilot</span>
+    <span className={`inline-flex min-w-0 items-center gap-2 sm:gap-3 ${className}`}>
+      <LogoMark className="h-5 w-5 sm:h-6 sm:w-6" />
+      <span className="brand-wordmark truncate">RepoPilot</span>
     </span>
   );
 }

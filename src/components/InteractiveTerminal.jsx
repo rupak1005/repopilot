@@ -150,11 +150,11 @@ export default function InteractiveTerminal({ framed = false }) {
         <div className="grid min-w-0 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)]">
           <aside className="min-w-0 border-b border-border-subtle lg:border-b-0 lg:border-r lg:border-border-subtle">
             <p className="px-4 pb-2 pt-4 text-mini text-text-tertiary sm:px-5">File targets</p>
-            <ul className="flex gap-2 overflow-x-auto px-4 pb-4 sm:px-5 lg:flex-col lg:overflow-visible">
+            <ul className="flex min-w-0 flex-col gap-2 px-4 pb-4 sm:px-5">
               {FILES.map((item) => {
                 const selected = item.id === file.id;
                 return (
-                  <li key={item.id} className="min-w-0 shrink-0 lg:w-full lg:shrink">
+                  <li key={item.id} className="min-w-0">
                     <button
                       type="button"
                       onClick={() => setActiveId(item.id)}
@@ -165,7 +165,7 @@ export default function InteractiveTerminal({ framed = false }) {
                           : "border-surface bg-transparent hover:border-brand"
                       }`}
                     >
-                      <span className="block break-all font-mono text-mini text-text-secondary">
+                      <span className="block break-words font-mono text-mini text-text-secondary">
                         {item.path}
                       </span>
                       <span className="mt-1 block font-mono text-micro text-text-tertiary">
@@ -193,14 +193,14 @@ export default function InteractiveTerminal({ framed = false }) {
 
             <p className="mb-4 max-w-prose text-small text-text-tertiary">{file.summary}</p>
 
-            <pre className="mb-4 overflow-x-auto rounded-6 border border-border-subtle bg-surface-tint-strong p-3 font-mono text-[13px] leading-6 text-text-secondary">
+            <pre className="code-block mb-4 max-w-full rounded-6 border border-border-subtle bg-surface-tint-strong p-3 font-mono text-[12px] leading-6 text-text-secondary sm:text-[13px]">
               {file.snippet.map((line) => (
                 <div
                   key={line.n}
-                  className={`flex gap-4 ${line.h ? "bg-surface-level2 text-text-primary" : ""}`}
+                  className={`flex gap-3 ${line.h ? "bg-surface-level2 text-text-primary" : ""}`}
                 >
                   <span className="w-6 shrink-0 select-none text-right text-text-tertiary">{line.n}</span>
-                  <span className="min-w-0 whitespace-pre">{line.c}</span>
+                  <span className="min-w-0 whitespace-pre-wrap break-words">{line.c}</span>
                 </div>
               ))}
             </pre>

@@ -87,7 +87,7 @@ export default function WaitlistModal() {
 
   return (
     <div
-      className="fixed inset-0 z-[200] flex items-center justify-center p-4"
+      className="fixed inset-0 z-[200] flex items-end justify-center p-3 sm:items-center sm:p-4"
       role="dialog"
       aria-modal="true"
       aria-labelledby="waitlist-title"
@@ -97,7 +97,7 @@ export default function WaitlistModal() {
         aria-hidden="true"
         onClick={() => setOpen(false)}
       />
-      <ShineFrame className="relative z-10 w-full max-w-md">
+      <ShineFrame className="relative z-10 mb-[env(safe-area-inset-bottom,0px)] w-full max-w-md max-h-[min(36rem,calc(100dvh-1.5rem))] overflow-y-auto">
         <div className="relative z-[2] p-5 sm:p-6">
           <div className="mb-5 flex items-start justify-between gap-3">
             <div>

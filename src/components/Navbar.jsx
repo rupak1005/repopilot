@@ -57,11 +57,11 @@ export default function Navbar() {
 
   return (
     <header className={`site-header ${scrolled || open ? "is-scrolled liquid-glass-nav" : ""} ${open ? "is-open" : ""}`}>
-      <div className="page-shell flex h-[var(--header-height)] items-center justify-between gap-3">
+      <div className="page-shell flex h-[var(--header-height)] min-w-0 items-center justify-between gap-2 sm:gap-3">
         <a
           href="#top"
           aria-label="RepoPilot"
-          className="-ml-2 flex min-h-11 items-center gap-3 rounded-6 px-2"
+          className="-ml-2 flex min-h-11 min-w-0 items-center gap-2 rounded-6 px-2 sm:gap-3"
           onClick={(event) => {
             markClicks.current += 1;
             window.clearTimeout(markTimer.current);
@@ -116,7 +116,7 @@ export default function Navbar() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-1 sm:gap-2">
           <ThemeToggleButton variant="circle" start="top-right" className="size-9 shrink-0 ring-1 ring-black/10 dark:ring-white/15" />
           <WaitlistButton className="btn-primary btn-compact hidden sm:inline-flex" />
           <button
@@ -145,7 +145,10 @@ export default function Navbar() {
       </div>
 
       {open && (
-        <div id="mobile-nav" className="border-t border-border-header bg-surface-base px-4 pb-6 pt-4 backdrop-blur md:hidden">
+        <div
+          id="mobile-nav"
+          className="max-h-[calc(100dvh-var(--header-height)-env(safe-area-inset-top,0px))] overflow-y-auto border-t border-border-header bg-surface-base px-4 pb-[max(1.5rem,env(safe-area-inset-bottom,0px))] pt-4 backdrop-blur md:hidden"
+        >
           <nav className="flex flex-col gap-1" aria-label="Mobile">
             {productNav.map((item) => (
               <a

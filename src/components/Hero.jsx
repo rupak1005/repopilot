@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import heroBlackhole from "../assets/hero-blackhole.png";
+import heroLight from "../assets/hero-light.jpg";
 import HeroProduct from "./HeroProduct.jsx";
 import { WaitlistButton } from "./Waitlist.jsx";
 import { FlipWords, Magnetic, Reveal, SplitText } from "./effects.jsx";
@@ -24,26 +25,37 @@ export default function Hero() {
       id="top"
       ref={spotRef}
       onMouseMove={onMove}
-      className="hero-section relative overflow-hidden pt-[calc(var(--header-height)+88px)] sm:pt-[calc(var(--header-height)+140px)]"
+      className="hero-section relative overflow-x-clip pt-[calc(var(--header-height)+env(safe-area-inset-top,0px)+48px)] sm:pt-[calc(var(--header-height)+env(safe-area-inset-top,0px)+88px)] lg:pt-[calc(var(--header-height)+env(safe-area-inset-top,0px)+140px)]"
     >
       <div className="hero-space" aria-hidden="true">
-        <img
-          className="hero-photo"
-          src={heroBlackhole}
-          alt=""
-          width={3840}
-          height={1620}
-          decoding="async"
-        />
+        <div className="hero-photo-wrap">
+          <img
+            className="hero-photo hero-photo--dark"
+            src={heroBlackhole}
+            alt=""
+            width={3840}
+            height={1620}
+            decoding="async"
+            fetchPriority="high"
+          />
+          <img
+            className="hero-photo hero-photo--light"
+            src={heroLight}
+            alt=""
+            width={1024}
+            height={571}
+            decoding="async"
+          />
+        </div>
         <div className="hero-vignette" />
       </div>
       <div className="hero-spot" aria-hidden="true" />
-      <div className="page-shell relative z-[1] max-w-[90rem]">
+      <div className="page-shell relative z-[1]">
         <Reveal>
           <p className="hero-kicker">The engineering intelligence system</p>
         </Reveal>
 
-        <h1 className="hero-headline mt-6 max-w-[14ch] sm:max-w-[12ch] lg:max-w-[11ch]">
+        <h1 className="hero-headline mt-5 sm:mt-6">
           <SplitText text={HEADLINE_LEAD} />{" "}
           <span className="hero-headline-end">
             <FlipWords delay={WORD_DELAY} words={["change", "merge", "review", "ship"]} />
@@ -60,7 +72,7 @@ export default function Hero() {
         </Reveal>
 
         <Reveal delay={0.4}>
-          <div className="mt-10 flex flex-col gap-4 pt-2 sm:flex-row sm:items-center sm:gap-6">
+          <div className="mt-8 flex flex-col gap-3 pt-2 sm:mt-10 sm:flex-row sm:items-center sm:gap-6">
             <Magnetic className="w-full sm:w-auto">
               <WaitlistButton className="btn-primary btn-hero w-full sm:w-auto" />
             </Magnetic>
@@ -70,12 +82,12 @@ export default function Hero() {
           </div>
         </Reveal>
 
-        <Reveal delay={0.6} className="mt-14 sm:mt-20">
-          <div className="floating-ui">
+        <Reveal delay={0.6} className="mt-10 min-w-0 sm:mt-16 lg:mt-20">
+          <div className="floating-ui min-w-0">
             <HeroProduct />
           </div>
         </Reveal>
-        <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.16em] text-text-quaternary">
+        <p className="mt-3 max-w-[42ch] font-mono text-[10px] uppercase tracking-[0.16em] text-text-quaternary">
           Interactive product preview. Demo fixture from a local graph, not a live parse.
         </p>
       </div>

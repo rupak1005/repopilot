@@ -74,7 +74,7 @@ export default function WorkflowPanel() {
 
   return (
     <ShineFrame>
-      <div ref={rootRef} className="relative z-[2] p-6 sm:p-8">
+      <div ref={rootRef} className="relative z-[2] p-4 sm:p-6 md:p-8">
         <div className="mb-6 flex flex-wrap items-center justify-between gap-3 sm:mb-8">
           <p className="font-mono text-mini text-text-tertiary">
             pull_request.synchronize · head 9f3c1a2
@@ -84,7 +84,7 @@ export default function WorkflowPanel() {
           />
         </div>
 
-        <ol className="grid grid-cols-1 gap-3 lg:grid-cols-5">
+        <ol className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
           {workflowSteps.map((step, index) => (
             <WorkflowStep
               key={step.id}

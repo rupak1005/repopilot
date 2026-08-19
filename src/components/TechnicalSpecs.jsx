@@ -17,7 +17,7 @@ export default function TechnicalSpecs() {
         <ShineFrame>
           <div className="relative z-[2] grid gap-px overflow-hidden sm:grid-cols-2 lg:grid-cols-4">
           {specs.map((spec) => (
-            <article key={spec.label} className="bg-surface-elevated p-5 sm:p-6">
+            <article key={spec.label} className="min-w-0 bg-surface-elevated p-4 sm:p-6">
               <p className="text-mini text-text-tertiary">{spec.label}</p>
               <p className="mt-3 text-title2 font-semibold text-text-primary">{spec.value}</p>
               <p className="mt-2 text-mini text-text-tertiary">{spec.detail}</p>

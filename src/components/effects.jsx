@@ -95,7 +95,7 @@ export function CardSpotlight({ children, className = "" }) {
     <div
       ref={ref}
       onMouseMove={onMove}
-      className={`liquid-glass liquid-glass-spot relative p-6 ${className}`}
+      className={`liquid-glass liquid-glass-spot relative min-w-0 p-5 sm:p-6 ${className}`}
     >
       {children}
     </div>
@@ -173,6 +173,7 @@ export function Magnetic({ children, className = "" }) {
   const onMove = (event) => {
     if (reduce) return;
     const rect = event.currentTarget.getBoundingClientRect();
+    if (window.matchMedia("(pointer: coarse)").matches) return;
     x.set((event.clientX - rect.left - rect.width / 2) * 0.18);
     y.set((event.clientY - rect.top - rect.height / 2) * 0.18);
   };

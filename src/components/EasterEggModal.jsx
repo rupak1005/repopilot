@@ -59,7 +59,7 @@ export default function EasterEggModal() {
 
   return (
     <div
-      className="fixed inset-0 z-[200] flex items-center justify-center p-4"
+      className="fixed inset-0 z-[200] flex items-end justify-center p-3 sm:items-center sm:p-4"
       role="dialog"
       aria-modal="true"
       aria-labelledby="overdrive-title"
@@ -70,7 +70,7 @@ export default function EasterEggModal() {
         onClick={() => setOpen(false)}
       />
 
-      <ShineFrame className="relative z-10 w-full max-w-xl">
+      <ShineFrame className="relative z-10 mb-[env(safe-area-inset-bottom,0px)] w-full max-w-xl max-h-[min(36rem,calc(100dvh-1.5rem))] overflow-y-auto">
         <div className="relative z-[2] p-5 sm:p-6">
         <div className="mb-4 flex items-center justify-between gap-3 border-b border-border-subtle pb-3">
           <p id="overdrive-title" className="font-mono text-mini font-medium text-status-green">
@@ -87,7 +87,7 @@ export default function EasterEggModal() {
           </button>
         </div>
 
-        <pre className="overflow-x-auto rounded-8 border border-border-subtle bg-surface-base p-4 font-mono text-[13px] leading-6 text-text-secondary">
+        <pre className="code-block overflow-hidden rounded-8 border border-border-subtle bg-surface-base p-4 font-mono text-[13px] leading-6 text-text-secondary">
           <span className="text-status-green">$</span> repopilot --mode stealth{"\n"}
           <span className="text-text-quaternary">index:</span> local graph{"  "}
           <span className="text-text-quaternary">parser:</span> tree-sitter{"\n"}

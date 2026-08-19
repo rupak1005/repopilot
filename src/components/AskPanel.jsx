@@ -11,13 +11,13 @@ export default function AskPanel() {
 
   return (
     <ShineFrame>
-      <div className="relative z-[2] grid min-h-[440px] grid-cols-1 lg:grid-cols-[220px_1fr]">
-        <aside className="glass-rail flex flex-col justify-between border-b border-border-subtle p-4 lg:border-b-0 lg:border-r lg:border-border-subtle">
-          <ul className="flex gap-1.5 overflow-x-auto lg:flex-col lg:overflow-visible">
+      <div className="relative z-[2] grid min-h-0 grid-cols-1 lg:min-h-[440px] lg:grid-cols-[minmax(0,220px)_minmax(0,1fr)]">
+        <aside className="glass-rail flex min-w-0 flex-col justify-between border-b border-border-subtle p-3 sm:p-4 lg:border-b-0 lg:border-r lg:border-border-subtle">
+          <ul className="flex min-w-0 flex-col gap-1.5">
             {askPrompts.map((item) => {
               const selected = item.id === activeId;
               return (
-                <li key={item.id} className="shrink-0 lg:w-full">
+                <li key={item.id} className="min-w-0">
                   <button
                     type="button"
                     onClick={() => setActiveId(item.id)}
@@ -28,7 +28,7 @@ export default function AskPanel() {
                         : "border-transparent text-text-tertiary hover:border-border-subtle hover:text-text-secondary"
                     }`}
                   >
-                    <span className="truncate">{item.prompt}</span>
+                    <span className="min-w-0 whitespace-normal break-words">{item.prompt}</span>
                   </button>
                 </li>
               );
@@ -40,7 +40,7 @@ export default function AskPanel() {
         </aside>
 
         <div className="p-1.5 sm:p-2">
-          <div className="product-view flex h-auto min-h-full flex-col justify-between p-5 sm:p-6">
+          <div className="product-view flex h-auto min-h-full min-w-0 flex-col justify-between p-4 sm:p-6">
           <AnimatePresence mode="wait">
             <motion.div
               key={prompt.id}
@@ -57,15 +57,16 @@ export default function AskPanel() {
               </div>
               <h3 className="text-title2 font-semibold text-text-primary">{answer.title}</h3>
               <p className="mt-3 max-w-[65ch] text-small text-text-secondary">{answer.body}</p>
-              <div className="mt-6 flex flex-wrap items-center gap-1.5 font-mono text-mini">
+              <div className="mt-6 flex flex-col gap-2 font-mono text-mini lg:flex-row lg:flex-wrap lg:items-center">
                 {answer.graph.map((node, index) => (
-                  <span key={node} className="inline-flex items-center gap-1.5">
-                    <span className="rounded-4 border border-border-subtle bg-surface-tint px-2.5 py-1 text-text-secondary">
+                  <span key={node} className="flex min-w-0 flex-col items-stretch gap-2 lg:inline-flex lg:flex-row lg:items-center lg:gap-1.5">
+                    <span className="rounded-4 border border-border-subtle bg-surface-tint px-2.5 py-1.5 text-text-secondary lg:py-1">
                       {node}
                     </span>
                     {index < answer.graph.length - 1 ? (
-                      <span className="text-text-quaternary" aria-hidden="true">
-                        →
+                      <span className="self-center text-text-quaternary lg:self-auto" aria-hidden="true">
+                        <span className="lg:hidden">↓</span>
+                        <span className="hidden lg:inline">→</span>
                       </span>
                     ) : null}
                   </span>

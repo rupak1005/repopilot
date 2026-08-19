@@ -14,7 +14,7 @@ export default function ReviewPanel() {
       <div className="relative z-[2]">
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border-subtle px-4 py-3 sm:px-5">
           <div className="min-w-0">
-            <p className="font-mono text-mini text-text-tertiary">PR #184 · maya · main ← auth/jwks-fallback</p>
+            <p className="break-words font-mono text-mini text-text-tertiary">PR #184 · maya · main ← auth/jwks-fallback</p>
             <p className="mt-1 text-small font-medium text-text-primary">Rotate JWKS fallback and keep Claims.Plan</p>
           </div>
           <div className="flex items-center gap-2">
@@ -23,7 +23,7 @@ export default function ReviewPanel() {
           </div>
         </div>
 
-        <div className="grid min-h-[420px] lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
+        <div className="grid min-h-0 lg:min-h-[420px] lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
           <ul className="border-b border-border-subtle lg:border-b-0 lg:border-r">
             {reviewFindings.map((item) => {
               const selected = item.id === activeId;
